@@ -17,7 +17,7 @@
 //$xml = file_get_contents($url, false, $context);
 
 if (isset($argv[1])) {
-   $xml = $argv[1];
+   $xml = file_get_contents($argv[1], false, $context);
 } else {
    exit("error");
 }
@@ -36,8 +36,6 @@ foreach ($data->entry as $entry) {
 
     if (preg_match('/"/', $desc)) {
         $desc = preg_replace('/\"/', '""', $desc);
-    }elseif (preg_match('/,/', $desc)) {    // for Microsoft Excel.
-        $desc = preg_replace('/\,/', ',,', $desc);
     }
 
     foreach($entry->range->children() as $child) {
